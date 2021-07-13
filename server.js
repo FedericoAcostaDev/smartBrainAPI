@@ -68,15 +68,25 @@ app.get("/profile/:id", (req, res) => {
       res.status(400).json(' user not found');
   }
 });
+
+app.post('/image', (req, res) => {
+    const { id } = req.body;
+    let found = false;
+    database.users.forEach((user) => {
+      if (user.id === id) {
+        found = true;
+        user.entries++
+        return res.json(user.entries);
+      }
+    })
+    if (!found) {
+        res.status(400).json(' user not found');
+    }
+
+})
+
+
 app.listen(3000, () => {
   console.log("app is running on port 3000");
 });
 
-/*
-/--> res= this is working
-/singin -->POST = succes/fail
-/register --> POST = user
-/profile/:userId --> GET = user
-/image --> PUT --> user
-
-*/
