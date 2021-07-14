@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const bcrypt = require("bcrypt-nodejs");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
@@ -9,7 +10,7 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 const database = {
   users: [
     {
-      id: "1",
+      id: "0",
       name: "john",
       email: "john@gmail.com",
       password: "cookies",
@@ -17,7 +18,7 @@ const database = {
       joined: new Date(),
     },
     {
-      id: "2",
+      id: "1",
       name: "sally",
       email: "sally@gmail.com",
       password: "bananas",
@@ -25,6 +26,13 @@ const database = {
       joined: new Date(),
     },
   ],
+  login:[
+    {
+      id:'2',
+      hash: '',
+      email:'john@gmail.com'
+    }
+  ]
 };
 
 app.get("/", (req, res) => {
@@ -44,6 +52,11 @@ app.post("/signin", (req, res) => {
 
 app.post("/register", (req, res) => {
   const { email, name, password } = req.body;
+  //bcrypt
+  bcrypt.hash(password, null, null, function(err, hash) {
+    console.log(hash);
+  });
+  //bcrypt
   database.users.push({
     id: "1",
     name: name,
@@ -86,7 +99,19 @@ app.post('/image', (req, res) => {
 })
 
 
+
+
+/*/ Load hash from your password DB.
+bcrypt.compare("bacon", hash, function(err, res) {
+  // res == true
+});
+bcrypt.compare("veggies", hash, function(err, res) {
+  // res = false
+});
+*/
+
 app.listen(3000, () => {
   console.log("app is running on port 3000");
 });
+
 
