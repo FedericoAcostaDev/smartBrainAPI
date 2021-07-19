@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const bcrypt = require("bcrypt-nodejs");
+const cors = require('cors');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads
+app.use(cors());
 
 //without moddifications
 
@@ -61,7 +63,6 @@ app.post("/register", (req, res) => {
     id: "1",
     name: name,
     email: email,
-    password: password,
     entries: 0,
     joined: new Date(),
   });
