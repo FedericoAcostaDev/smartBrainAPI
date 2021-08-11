@@ -33,15 +33,6 @@ app.get("/profile/:id", (req, res)=> {profile.handleProfileGet(req, res, db)})
 app.put("/image", (req, res) => { image.handleImage(req, res, db)})
 app.post("/imageurl", (req, res) => { image.handleApiCall(req, res,)})
 
-/*/ Load hash from your password DB.
-bcrypt.compare("bacon", hash, function(err, res) {
-  // res == true
-});
-bcrypt.compare("veggies", hash, function(err, res) {
-  // res = false
-});
-*/
-
 app.listen(process.env.PORT || 3000, () => {
   console.log(`app is running on port ${process.env.PORT}`) ;
 });
